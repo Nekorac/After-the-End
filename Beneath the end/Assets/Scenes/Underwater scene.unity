@@ -578,7 +578,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008943081, y: 0.111794114}
+  m_Offset: {x: 0.039518595, y: 0.050643206}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -589,7 +589,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.62440395, y: 1.5276034}
+  m_Size: {x: 0.44095087, y: 1.4053016}
   m_EdgeRadius: 0
 --- !u!50 &1523589818
 Rigidbody2D:
@@ -698,7 +698,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523589814}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.008726465, w: 0.999962}
   m_LocalPosition: {x: -3.9, y: 2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -706,7 +706,7 @@ Transform:
   - {fileID: 3428652}
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1}
 --- !u!114 &1523589822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -719,10 +719,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f1a05fd406cdd43b4d6d05e4a0b123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sinkForce: 1
   rotSpeed: 150
   swimSpeed: 300
-  speedForSink: 0.5
-  sinkSpeed: 0.5
+  speedForSink: 1.5
+  _sinkSpeed: 0.25
+  anim: {fileID: 0}
 --- !u!1001 &1932799453
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UnderwaterMovement : MonoBehaviour
 {
+    public float sinkForce = 15;
     Rigidbody2D rb;
     bool swim = false;
     bool up = false;
@@ -17,6 +18,9 @@ public class UnderwaterMovement : MonoBehaviour
     [SerializeField] float speedForSink = 0.5f;
     [SerializeField] float _sinkSpeed = 0.5f;
     float sinkTimer = 0;
+    float sinkCountdown = .5f;
+
+    public Animator anim;
 
 
     // Start is called before the first frame update
@@ -34,10 +38,12 @@ public class UnderwaterMovement : MonoBehaviour
         left = Input.GetKey(KeyCode.LeftArrow);
         right = Input.GetKey(KeyCode.RightArrow);
 
+        //Debug.Log(transform.rotation.eulerAngles.z); //>180 for right, < for left
+
         if (rb.velocity.magnitude < speedForSink)
         {
-            sinkTimer += Time.fixedDeltaTime;
-            if (sinkTimer > 1f)
+            sinkTimer += Time.deltaTime;
+            if (sinkTimer > sinkCountdown)
             {
                 shouldSink = true;
             }
@@ -68,12 +74,28 @@ public class UnderwaterMovement : MonoBehaviour
             shouldSink = false;
         }
 
+        //if (right)
+        //{
+        //    if (transform.rotation.eulerAngles.z <= 180)
+        //    {
+        //        rb.MoveRotation(transform.rotation.eulerAngles.z - 180);
+        //    }
+        //}
+
+        //if (left)
+        //{
+        //    if (transform.rotation.eulerAngles.z > 180)
+        //    {
+        //        rb.MoveRotation(transform.rotation.eulerAngles.z + 180);
+        //    }
+        //}
+
         if (shouldSink)
         {
             //float sinkSpeed = rb.velocity.y;
             //sinkSpeed -= _sinkSpeed * Time.fixedDeltaTime;
             //rb.velocity = new Vector2(rb.velocity.x, -_sinkSpeed);
-            rb.AddForce(new Vector2(0, -25));
+            rb.AddForce(new Vector2(0, -sinkForce));
         }
         //if (rb.rotation > 0 && !m_FacingRight)
         //{
@@ -83,6 +105,19 @@ public class UnderwaterMovement : MonoBehaviour
         //{
         //    Flip();
         //}
+    }
+
+    private void LateUpdate()
+    {
+        if (transform.rotation.eulerAngles.z < 180 && m_FacingRight)
+        {
+            Flip();
+        }
+        if (transform.rotation.eulerAngles.z >= 180 && !m_FacingRight)
+        {
+            Flip();
+        }
+
     }
 
     private void RotateFourPoles()
