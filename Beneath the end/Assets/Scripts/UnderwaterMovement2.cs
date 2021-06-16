@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnderwaterMovement : MonoBehaviour
+public class UnderwaterMovement2 : MonoBehaviour
 {
     public float sinkForce = 15;
     Rigidbody2D rb;
