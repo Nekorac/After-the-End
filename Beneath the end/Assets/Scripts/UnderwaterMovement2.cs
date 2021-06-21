@@ -20,6 +20,10 @@ public class UnderwaterMovement2 : MonoBehaviour
     float sinkTimer = 0;
     float sinkCountdown = .5f;
 
+    Quaternion startRotation;
+    Quaternion endRotation;
+    float rotationProgress = -1;
+
     public Animator anim;
 
 
@@ -32,6 +36,7 @@ public class UnderwaterMovement2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RotateFourPoles();
         swim = Input.GetKey(KeyCode.S);
         if (swim)
         {
@@ -67,53 +72,27 @@ public class UnderwaterMovement2 : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //RotateFourPoles();
-        if (up)
-        {
-            rb.MoveRotation(rb.rotation + rotSpeed * Time.fixedDeltaTime);
-        }
-        if (down)
-        {
-            rb.MoveRotation(rb.rotation - rotSpeed * Time.fixedDeltaTime);
-        }
-
+        Debug.Log(rb.transform.up);
         if (swim)
         {
-            rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+            //rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.transform.position + rb.transform.up * swimSpeed * Time.fixedDeltaTime);
             shouldSink = false;
         }
 
-        //if (right)
-        //{
-        //    if (transform.rotation.eulerAngles.z <= 180)
-        //    {
-        //        rb.MoveRotation(transform.rotation.eulerAngles.z - 180);
-        //    }
-        //}
+        if (rotationProgress < 1 && rotationProgress >= 0)
+        {
+            rotationProgress += Time.deltaTime * 5;
 
-        //if (left)
-        //{
-        //    if (transform.rotation.eulerAngles.z > 180)
-        //    {
-        //        rb.MoveRotation(transform.rotation.eulerAngles.z + 180);
-        //    }
-        //}
+            // Here we assign the interpolated rotation to transform.rotation
+            // It will range from startRotation (rotationProgress == 0) to endRotation (rotationProgress >= 1)
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, rotationProgress);
+        }
 
         if (shouldSink)
         {
-            //float sinkSpeed = rb.velocity.y;
-            //sinkSpeed -= _sinkSpeed * Time.fixedDeltaTime;
-            //rb.velocity = new Vector2(rb.velocity.x, -_sinkSpeed);
             rb.AddForce(new Vector2(0, -sinkForce));
         }
-        //if (rb.rotation > 0 && !m_FacingRight)
-        //{
-        //    Flip();
-        //}
-        //else if (rb.rotation < 180 && m_FacingRight)
-        //{
-        //    Flip();
-        //}
     }
 
     private void LateUpdate()
@@ -126,27 +105,47 @@ public class UnderwaterMovement2 : MonoBehaviour
         {
             Flip();
         }
-
     }
 
     private void RotateFourPoles()
     {
-        if (up)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            rb.MoveRotation(0);
+            StartRotating(0);
         }
-        if (down)
+        else if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
         {
-            rb.MoveRotation(180);
+            rotationProgress = -1;
         }
-        if (left)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            rb.MoveRotation(90);
+            StartRotating(180);
         }
-        if (right)
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            rb.MoveRotation(270);
+            StartRotating(90);
         }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            StartRotating(270);
+        }
+
+        //if (up)
+        //{
+        //    rb.MoveRotation(0);
+        //}
+        //if (down)
+        //{
+        //    rb.MoveRotation(180);
+        //}
+        //if (left)
+        //{
+        //    rb.MoveRotation(90);
+        //}
+        //if (right)
+        //{
+        //    rb.MoveRotation(270);
+        //}
     }
 
     private void Flip()
@@ -158,5 +157,16 @@ public class UnderwaterMovement2 : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void StartRotating(float zPosition)
+    {
+
+        // Here we cache the starting and target rotations
+        startRotation = transform.rotation;
+        endRotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, zPosition);
+
+        // This starts the rotation, but you can use a boolean flag if it's clearer for you
+        rotationProgress = 0;
     }
 }
