@@ -2273,6 +2273,7 @@ GameObject:
   - component: {fileID: 1523589822}
   - component: {fileID: 1523589823}
   - component: {fileID: 1523589824}
+  - component: {fileID: 1523589825}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -2356,7 +2357,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 2
+  m_Constraints: 0
 --- !u!114 &1523589819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,7 +2468,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523589814}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84f1a05fd406cdd43b4d6d05e4a0b123, type: 3}
   m_Name: 
@@ -2531,6 +2532,24 @@ MonoBehaviour:
     m_Extent: {x: 1.1393524, y: 2.4811087, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
+--- !u!114 &1523589825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523589814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed7391778c80adc48bdbcea72213a3a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sinkForce: 15
+  rotSpeed: 100
+  swimSpeed: 5
+  speedForSink: 0.5
+  _sinkSpeed: 0.5
+  anim: {fileID: 1523589823}
 --- !u!1 &1527060749
 GameObject:
   m_ObjectHideFlags: 0
