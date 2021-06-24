@@ -68,17 +68,24 @@ public class UnderwaterMovement2 : MonoBehaviour
             shouldSink = false;
         }
 
+        if (swim)
+        {
+            //rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+            rb.MovePosition(rb.transform.position + rb.transform.up * swimSpeed * Time.deltaTime);
+            shouldSink = false;
+        }
+
     }
 
     private void FixedUpdate()
     {
         Debug.Log(rb.transform.up);
-        if (swim)
-        {
-            //rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
-            rb.MovePosition(rb.transform.position + rb.transform.up * swimSpeed * Time.fixedDeltaTime);
-            shouldSink = false;
-        }
+        //if (swim)
+        //{
+        //    //rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+        //    rb.MovePosition(rb.transform.position + rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+        //    shouldSink = false;
+        //}
 
         if (rotationProgress < 1 && rotationProgress >= 0)
         {
