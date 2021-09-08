@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 995207027253195620}
   - component: {fileID: 995207027253195623}
   - component: {fileID: 2292033999116173804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform_triple_bump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
