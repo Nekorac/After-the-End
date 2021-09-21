@@ -6,6 +6,7 @@ public class UnderwaterMovement : MonoBehaviour
 {
     public float sinkForce = 15;
     Rigidbody2D rb;
+    bool canSwim = true;
     bool swim = false;
     bool up = false;
     bool right = false;
@@ -68,19 +69,22 @@ public class UnderwaterMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //RotateFourPoles();
-        if (up)
+        if (canSwim)
         {
-            rb.MoveRotation(rb.rotation + rotSpeed * Time.fixedDeltaTime);
-        }
-        if (down)
-        {
-            rb.MoveRotation(rb.rotation - rotSpeed * Time.fixedDeltaTime);
-        }
+            if (up)
+            {
+                rb.MoveRotation(rb.rotation + rotSpeed * Time.fixedDeltaTime);
+            }
+            if (down)
+            {
+                rb.MoveRotation(rb.rotation - rotSpeed * Time.fixedDeltaTime);
+            }
 
-        if (swim)
-        {
-            rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
-            shouldSink = false;
+            if (swim)
+            {
+                rb.AddForce(rb.transform.up * swimSpeed * Time.fixedDeltaTime);
+                shouldSink = false;
+            }
         }
 
         //if (right)
@@ -158,5 +162,16 @@ public class UnderwaterMovement : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    void turnCanSwimTrue()
+    {
+        canSwim = true;
+    }
+
+    public void cantSwim()
+    {
+        canSwim = false;
+        Invoke("turnCanSwimTrue", .25f);
     }
 }
