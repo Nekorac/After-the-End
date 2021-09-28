@@ -8,6 +8,6 @@ public class BubblePush : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         collision.attachedRigidbody.AddForce(new Vector2(0, pushStrength));
-        collision.GetComponent<UnderwaterMovement>().cantSwim();
+        collision.GetComponent<UnderwaterMovement>().cantSwim(.25f);
     }
 }
