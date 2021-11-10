@@ -169,9 +169,14 @@ public class UnderwaterMovement : MonoBehaviour
         canSwim = true;
     }
 
-    public void cantSwim()
+    public void cantSwim(float duration)
     {
         canSwim = false;
-        Invoke("turnCanSwimTrue", .25f);
+        Invoke("turnCanSwimTrue", duration);
+    }
+
+    public void toggleCanSwim()
+    {
+        canSwim = !canSwim;
     }
 }
